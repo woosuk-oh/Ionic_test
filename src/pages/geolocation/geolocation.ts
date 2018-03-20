@@ -1,5 +1,5 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavParams, LoadingController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
@@ -48,17 +48,7 @@ export class latlongPage {
             this.loading.dismiss();
         }
 
-        this
-        .geolocation.getCurrentPosition().then(pos=>{
-            this.lat = pos.coords.latitude;
-            this.lng = pos.coords.longitude;
-
-        }).catch(err=> 
-            {
-                this.loading.dismiss();
-                console.log(err)
-            }
-        )
+        
             
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
@@ -79,6 +69,7 @@ export class latlongPage {
     watchGeolocation(){
         this.loading.present();
 
+       
         // let wt = this.geolocation.watchPosition();
         
         // wt.subscribe((data) => {
@@ -93,11 +84,15 @@ export class latlongPage {
         // this.items.push()
         
         let onSuccess = (postion) => {
-            alert(
-                'Lat'       + postion.coords.latitude + '\n' +
-                'Long'      + postion.coords.longitude + '\n'+
-                'Accuracy'  + postion.coords.accuracy + '\n' 
-            );
+            // alert(
+            //     'Lat'       + postion.coords.latitude + '\n' +
+            //     'Long'      + postion.coords.longitude + '\n'+
+            //     'Accuracy'  + postion.coords.accuracy + '\n' 
+            // );
+                        
+            this.lat = postion.coords.latitude;
+            this.lng = postion.coords.longitude;
+
             this.loading.dismiss();
         
         };
