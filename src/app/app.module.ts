@@ -7,10 +7,13 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { BasicPage } from '../pages/action-sheets/basic';
+import { latlongPage } from '../pages/geolocation/geolocation'
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-    BasicPage
+    BasicPage,
+    latlongPage
 
 
   ],
@@ -32,9 +36,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-    BasicPage
+    BasicPage,
+    latlongPage
   ],
   providers: [
+    Geolocation,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

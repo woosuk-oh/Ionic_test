@@ -9,7 +9,7 @@ export class BasicPage{
     constructor(
         public platform: Platform,
         public actionsheetCtrl: ActionSheetController
-    ){}
+    ){}  
 
     openMenu(){
         let actionShet = this.actionsheetCtrl.create({
