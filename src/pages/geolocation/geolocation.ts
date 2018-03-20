@@ -60,7 +60,7 @@ export class latlongPage {
             }
         )
             
-        // navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
         // this.geolocation.getCurrentPosition().then((resp) => {
         //     let pos = {
