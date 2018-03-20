@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Platform, ActionSheetController} from 'ionic-angular';
 
 @Component({
+    selector: 'action-sheets-basic-page',
     templateUrl: 'basic.html'
 })
 export class BasicPage{
