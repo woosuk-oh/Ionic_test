@@ -6,6 +6,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 import { BasicPage } from '../pages/action-sheets/basic';
 import { latlongPage } from '../pages/geolocation/geolocation'
+import { networkPage } from '../pages/network-check/network'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,7 +35,9 @@ export class MyApp {
       { title: 'Hello Ionic3333', component: HelloIonicPage },
       { title: 'My First List2', component: ListPage },
       { title: 'test', component: BasicPage },
-      { title: 'gps Test', component: latlongPage}
+      { title: 'gps Test', component: latlongPage},
+      { title: 'network test', component: networkPage}
+
     ];
   }
 
