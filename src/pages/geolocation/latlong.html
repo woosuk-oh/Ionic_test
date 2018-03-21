@@ -3,18 +3,22 @@
                 <button ion-button menuToggle>
                     <ion-icon name="menu"></ion-icon>
                 </button>
-            <ion-title>GeoLocation Test</ion-title>
+            <ion-title>GeoLocation Test3</ion-title>
         </ion-navbar>
     </ion-header>
-    
+
 <ion-content>
 
-    <!-- <ion-list> -->
-        <!-- {{item.title}} -->
-        <p> LAT: {{ lat }} </p>
-        <p> Long: {{ lng }}</p>
-    <!-- </ion-list> -->
-    
+     <ion-list>
+       <ion-item *ngFor="let item of items">
+         {{item.lat}} {{item.lng}}
+       </ion-item>
+     </ion-list>
+
+  <!-- {{item.title}}
+
+<p> LAT: {{ lat }} </p>
+  <p> Long: {{ lng }}</p>-->
 </ion-content>
 
 
@@ -24,4 +28,3 @@
             내 현재 위치
         </button>
 </ion-footer>
-    
