@@ -105,9 +105,7 @@ export class latlongPage {
 
 
     return navigator.geolocation.watchPosition(onSuccess, onError, {
-      enableHighAccuracy: true,
-      timeout: 30000,
-      maximumAge: 3000
+      maximumAge: 30000
     })
   }
 
