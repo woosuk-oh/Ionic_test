@@ -9,11 +9,12 @@ import {Geolocation} from '@ionic-native/geolocation';
 export class LatlongPage {
 
 
-  items: Array<{ lat: any, lng: any}>;
+  items: Array<{ lat: any, lng: any }>;
 
-  lat: any;
-  lng: any;
+  lat2: any;
+  lng2: any;
   rp: any;
+  subscription : any;
 
   loading: any;
 
@@ -25,45 +26,13 @@ export class LatlongPage {
   }
 
 
-  tryGeolocation() {
-    this.loading.present();
-
-    let onSuccess = (postion) => {
-      alert(
-        'Lat' + postion.coords.latitude + '\n' +
-        'Long' + postion.coords.longitude + '\n' +
-        'Accuracy' + postion.coords.accuracy + '\n'
-      );
-      this.loading.dismiss();
-
-    };
-
-    let onError = (error) => {
-      alert('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n'
-      );
-      this.loading.dismiss();
-    }
-
-
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-
-
-  }
-
   watchGeolocation() {
     this.loading.present();
 
-
-
-
-    let onSuccess = (postion) => {
+  /*  let onSuccess = (postion) => {
 
       this.lat = postion.coords.latitude;
       this.lng = postion.coords.longitude;
-
-
 
       console.log(postion.coords.latitude)
 
@@ -76,35 +45,45 @@ export class LatlongPage {
         'message: ' + error.message + '\n'
       );
       this.loading.dismiss();
-    }
+    }*/
 
     this.rp = this._repeat();
 
+    //navigator.geolocation.watchPosition(onSucess, onError, {timeout:3000})
+
+    this.subscription  = this.geolocation.watchPosition({timeout: 10000});
+    this.subscription.subscribe((data) => {
+      this.lat2 = data.coords.latitude;
+      this.lng2 = data.coords.longitude;
+
+      console.log(data.coords.latitude)
+
+      this.loading.dismiss();
 
 
-    return navigator.geolocation.watchPosition(onSuccess, onError, {
-      maximumAge: 30000
-    })
+    });
+
 
   }
 
   stopGeolocation() {
+    // this.subscription.unsubscribe();
     clearInterval(this.rp);
     alert("사용자 요청으로 테스트 종료")
 
-    this.items.splice(0,this.items.length)
+    this.items.splice(0, this.items.length)
   }
 
-  _repeat(){
-    setInterval(()=>{
-      this.items.push({
-        lat: this.lat,
-        lng: this.lng
-      });
-    }, 2000)
+  _repeat() {
+    return (
+      setInterval(() => {
+        this.items.push({
+          lat: this.lat2,
+          lng: this.lng2
+        });
+      }, 2000)
+    )
   }
-
-
 
 
 }

@@ -8,6 +8,7 @@ import { BasicPage } from '../pages/action-sheets/basic';
 import { LatlongPage } from '../pages/geolocation/geolocation';
 import { NetworkPage } from '../pages/network-check/network';
 import { BatteryPage } from "../pages/battery-check/battery";
+import { BluetoothPage } from "../pages/bluetooth/bluetooth";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +39,9 @@ export class MyApp {
       { title: 'test', component: BasicPage },
       { title: 'gps Test', component: LatlongPage},
       { title: 'network test', component: NetworkPage},
-      { title: 'battery test1', component: BatteryPage}
+      { title: 'battery test1', component: BatteryPage},
+      { title: 'bluetooth test1', component: BluetoothPage},
+
 
     ];
   }

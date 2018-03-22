@@ -91,6 +91,10 @@
     <plugin name="cordova-wifiinfo-plugin" spec="^0.1.0" />
     <plugin name="com.pylonproducts.wifiwizard" spec="~0.2.11" />
     <plugin name="cordova-plugin-battery-status" spec="^2.0.1" />
+    <plugin name="cordova-plugin-bluetooth-serial" spec="^0.4.7" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="^4.5.4" />
+    <plugin name="cordova-plugin-ble-central" spec="^1.1.4">
+        <variable name="BLUETOOTH_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>

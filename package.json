@@ -22,6 +22,8 @@
     "@angular/platform-browser": "5.2.9",
     "@angular/platform-browser-dynamic": "5.2.9",
     "@ionic-native/battery-status": "^4.6.0",
+    "@ionic-native/ble": "^4.6.0",
+    "@ionic-native/bluetooth-serial": "^4.6.0",
     "@ionic-native/core": "4.5.3",
     "@ionic-native/geolocation": "^4.6.0",
     "@ionic-native/network": "^4.6.0",
@@ -32,6 +34,9 @@
     "cordova-android": "7.0.0",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-battery-status": "^2.0.1",
+    "cordova-plugin-ble-central": "^1.1.4",
+    "cordova-plugin-bluetooth-serial": "^0.4.7",
+    "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
@@ -69,7 +74,11 @@
       "org.apache.cordova.signal-strength": {},
       "com.pylonproducts.wifiwizard": {},
       "cordova-wifiinfo-plugin": {},
-      "cordova-plugin-battery-status": {}
+      "cordova-plugin-battery-status": {},
+      "cordova-plugin-bluetooth-serial": {},
+      "cordova-plugin-ble-central": {
+        "BLUETOOTH_USAGE_DESCRIPTION": " "
+      }
     },
     "platforms": [
       "android",
