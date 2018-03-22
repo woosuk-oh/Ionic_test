@@ -3,7 +3,7 @@
     <name>MyIonicProject</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.100.121:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -88,7 +88,9 @@
     <allow-navigation href="http://192.168.100.121:8100" />
     <plugin name="cordova-plugin-networkinterface" spec="^1.2.0" />
     <plugin name="org.apache.cordova.signal-strength" spec="~1.0.0" />
+    <plugin name="cordova-wifiinfo-plugin" spec="^0.1.0" />
     <plugin name="com.pylonproducts.wifiwizard" spec="~0.2.11" />
+    <plugin name="cordova-plugin-battery-status" spec="^2.0.1" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="^4.5.4" />
 </widget>

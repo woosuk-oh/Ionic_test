@@ -4,14 +4,14 @@ import {NetworkInterface} from '@ionic-native/network-interface';
 import {Network} from '@ionic-native/network';
 // import { Signal } from 'cordova-plugin-signal-strength'
 
-declare var cordova;
+// declare var WifiWizard:any;
 
 @Component({
   templateUrl: 'network.html'
 })
 
 
-export class networkPage {
+export class NetworkPage {
 
 
   items: Array<{ lte: any, wifi: any, sensitivity: any }>;
@@ -31,14 +31,16 @@ export class networkPage {
   watchNetworkInfoCheck() {
     this.platform.ready().then(() => {
 
-      cordova.plugins.WifiWizrd.getCurrentSSID(onSuccess, onError);
+      // cordova.plugins.WifiWizard.getCurrentSSID(onSuccess, onError);
+      // (<any>window).plugins.WifiWizard.getCurrentSSID(onSuccess,onError)
+      (<any>window).plugins.SignalStrength.dbm(onSuccess)
 
     })
 
 
     let onSuccess = (res) => {
-      this.wifiInfo = res
-      console.log("wifi test: " + res)
+      this.wifiInfo = JSON.stringify(res)
+      console.log("wifi test: " + this.wifiInfo)
 
       this.loading.dismiss();
     }

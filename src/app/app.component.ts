@@ -5,8 +5,9 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 import { BasicPage } from '../pages/action-sheets/basic';
-import { latlongPage } from '../pages/geolocation/geolocation'
-import { networkPage } from '../pages/network-check/network'
+import { LatlongPage } from '../pages/geolocation/geolocation';
+import { NetworkPage } from '../pages/network-check/network';
+import { BatteryPage } from "../pages/battery-check/battery";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,8 +36,9 @@ export class MyApp {
       { title: 'Hello Ionic3333', component: HelloIonicPage },
       { title: 'My First List2', component: ListPage },
       { title: 'test', component: BasicPage },
-      { title: 'gps Test', component: latlongPage},
-      { title: 'network test', component: networkPage}
+      { title: 'gps Test', component: LatlongPage},
+      { title: 'network test', component: NetworkPage},
+      { title: 'battery test1', component: BatteryPage}
 
     ];
   }

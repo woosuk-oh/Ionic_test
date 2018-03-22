@@ -2,14 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { ListAdd } from "../pages/pipes/list-add";
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { BasicPage } from '../pages/action-sheets/basic';
-import { latlongPage } from '../pages/geolocation/geolocation';
-import { networkPage } from '../pages/network-check/network';
-
+import { LatlongPage } from '../pages/geolocation/geolocation';
+import { NetworkPage } from '../pages/network-check/network';
+import {BatteryPage} from "../pages/battery-check/battery";
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,6 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
 import { NetworkInterface } from '@ionic-native/network-interface';
+import { BatteryStatus } from "@ionic-native/battery-status";
 
 
 
@@ -27,8 +29,10 @@ import { NetworkInterface } from '@ionic-native/network-interface';
     ItemDetailsPage,
     ListPage,
     BasicPage,
-    latlongPage,
-    networkPage
+    LatlongPage,
+    NetworkPage,
+    BatteryPage,
+    ListAdd
 
 
   ],
@@ -43,10 +47,12 @@ import { NetworkInterface } from '@ionic-native/network-interface';
     ItemDetailsPage,
     ListPage,
     BasicPage,
-    latlongPage,
-    networkPage
+    LatlongPage,
+    NetworkPage,
+    BatteryPage
   ],
   providers: [
+    BatteryStatus,
     Network,
     NetworkInterface,
     Geolocation,

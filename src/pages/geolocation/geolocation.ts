@@ -6,11 +6,14 @@ import {Geolocation} from '@ionic-native/geolocation';
   templateUrl: 'latlong.html'
 })
 
-export class latlongPage {
+export class LatlongPage {
 
 
   items: Array<{ lat: any, lng: any}>;
 
+  lat: any;
+  lng: any;
+  rp: any;
 
   loading: any;
 
@@ -45,17 +48,6 @@ export class latlongPage {
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
-    // this.geolocation.getCurrentPosition().then((resp) => {
-    //     let pos = {
-    //         lat: resp.coords.latitude,
-    //         lng: resp.coords.longitude
-    //     };
-
-    //     this.loading.dismiss();
-    // }).catch((error) => {
-    //     console.log('Error Getting Location ', error);
-    //     this.loading.dismiss();
-    // })
 
 
   }
@@ -64,31 +56,14 @@ export class latlongPage {
     this.loading.present();
 
 
-    // let wt = this.geolocation.watchPosition();
 
-    // wt.subscribe((data) => {
-    //     let pos = {
-    //         lat: data.coords.latitude,
-    //         lng: data.coords.longitude
-    //     }
-    // })
-
-    // wt.subscribe()
-
-    // this.items.push()
 
     let onSuccess = (postion) => {
-      // alert(
-      //     'Lat'       + postion.coords.latitude + '\n' +
-      //     'Long'      + postion.coords.longitude + '\n'+
-      //     'Accuracy'  + postion.coords.accuracy + '\n'
-      // );
+
+      this.lat = postion.coords.latitude;
+      this.lng = postion.coords.longitude;
 
 
-      this.items.push({
-        lat: postion.coords.latitude,
-        lng: postion.coords.longitude
-      });
 
       console.log(postion.coords.latitude)
 
@@ -103,11 +78,33 @@ export class latlongPage {
       this.loading.dismiss();
     }
 
+    this.rp = this._repeat();
+
+
 
     return navigator.geolocation.watchPosition(onSuccess, onError, {
       maximumAge: 30000
     })
+
   }
+
+  stopGeolocation() {
+    clearInterval(this.rp);
+    alert("사용자 요청으로 테스트 종료")
+
+    this.items.splice(0,this.items.length)
+  }
+
+  _repeat(){
+    setInterval(()=>{
+      this.items.push({
+        lat: this.lat,
+        lng: this.lng
+      });
+    }, 2000)
+  }
+
+
 
 
 }
