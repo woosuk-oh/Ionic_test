@@ -2,25 +2,27 @@ import {Component, OnInit} from '@angular/core';
 import {LoadingController, Platform} from 'ionic-angular';
 import {NetworkInterface} from '@ionic-native/network-interface';
 import {Network} from '@ionic-native/network';
+
+
+
 // import { Signal } from 'cordova-plugin-signal-strength'
 
-// declare var WifiWizard:any;
+declare var WifiWizard2:any;
 
-declare let window: any;
 
 @Component({
   templateUrl: 'network.html'
 })
 
 
-export class NetworkPage implements OnInit{
-  ngOnInit(){
-    // (<any>window).plugins.WifiWizard.
-  }
+export class NetworkPage{
 
 
-  items: Array<{ lte: any, wifi: any, sensitivity: any }>;
+
+
   wifiInfo: any;
+  items: any[] = [];
+
   loading: any;
 
   constructor(private networkInterface: NetworkInterface,
@@ -30,7 +32,44 @@ export class NetworkPage implements OnInit{
     this.loading = this.loadingCtrl.create();
     this.items = [];
 
+
   }
+
+
+  errorHandler(err: any) {
+    alert(`Problem: ${err}`);
+  }
+
+  getSsidName() {
+    WifiWizard2.getCurrentSSID((ssid: string) => alert(`Your SSID: ${ssid}`), this.errorHandler);
+  }
+
+  isWifiEnabled() {
+    WifiWizard2.isWifiEnabled(truthy => alert(`Wifi Enabled: ${truthy}`), this.errorHandler);
+  }
+
+  listNetworks() {
+    WifiWizard2.getScanResults(
+      networks =>
+      {
+        // for(let net of networks){
+        this.wifiInfo = networks;
+
+        // }
+      }/*alert(`Networks: ${JSON.stringify(networks)}`)*/, this.errorHandler);
+
+
+    console.log(this.wifiInfo)
+
+
+   /* this.wifiInfo.map((wf)=>{
+      this.items.push(JSON.stringify(wf))
+      console.log(wf)
+
+    })*/
+    // console.log(this.items)
+  }
+
 
 
   watchNetworkInfoCheck() {
@@ -38,24 +77,10 @@ export class NetworkPage implements OnInit{
 
       // cordova.plugins.WifiWizard.getCurrentSSID(onSuccess, onError);
       // (<any>window).plugins.WifiWizard.getCurrentSSID(onSuccess,onError)
-      (<any>window).plugins.SignalStrength.dbm(onSuccess)
+      // (<any>window).plugins.SignalStrength.dbm(onSuccess)
 
     })
 
-
-    let onSuccess = (res) => {
-      this.wifiInfo = JSON.stringify(res)
-      console.log("wifi test: " + this.wifiInfo)
-
-      this.loading.dismiss();
-    }
-
-    let onError = (error) => {
-      alert('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n'
-      );
-      this.loading.dismiss();
-    }
 
 
 
