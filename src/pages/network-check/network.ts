@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoadingController, Platform} from 'ionic-angular';
 import {NetworkInterface} from '@ionic-native/network-interface';
 import {Network} from '@ionic-native/network';
@@ -6,12 +6,17 @@ import {Network} from '@ionic-native/network';
 
 // declare var WifiWizard:any;
 
+declare let window: any;
+
 @Component({
   templateUrl: 'network.html'
 })
 
 
-export class NetworkPage {
+export class NetworkPage implements OnInit{
+  ngOnInit(){
+    // (<any>window).plugins.WifiWizard.
+  }
 
 
   items: Array<{ lte: any, wifi: any, sensitivity: any }>;

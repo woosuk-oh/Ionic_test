@@ -12,7 +12,8 @@ import { LatlongPage } from '../pages/geolocation/geolocation';
 import { NetworkPage } from '../pages/network-check/network';
 import {BatteryPage} from "../pages/battery-check/battery";
 import {BluetoothPage} from "../pages/bluetooth/bluetooth";
-
+import {BlePage} from "../pages/ble/ble";
+import {BleDetailPage} from "../pages/ble-details/ble-detail";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,6 +22,7 @@ import { Network } from '@ionic-native/network';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { BatteryStatus } from "@ionic-native/battery-status";
 import {BluetoothSerial } from "@ionic-native/bluetooth-serial";
+import {BLE} from "@ionic-native/ble";
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import {BluetoothSerial } from "@ionic-native/bluetooth-serial";
     NetworkPage,
     BatteryPage,
     ListAdd,
-    BluetoothPage
+    BluetoothPage,
+    BlePage,
+    BleDetailPage
 
 
   ],
@@ -52,9 +56,12 @@ import {BluetoothSerial } from "@ionic-native/bluetooth-serial";
     LatlongPage,
     NetworkPage,
     BatteryPage,
-    BluetoothPage
+    BluetoothPage,
+    BlePage,
+    BleDetailPage
   ],
   providers: [
+    BLE,
     BluetoothSerial,
     BatteryStatus,
     Network,

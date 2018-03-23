@@ -9,6 +9,7 @@ import { LatlongPage } from '../pages/geolocation/geolocation';
 import { NetworkPage } from '../pages/network-check/network';
 import { BatteryPage } from "../pages/battery-check/battery";
 import { BluetoothPage } from "../pages/bluetooth/bluetooth";
+import {BlePage} from "../pages/ble/ble";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,6 +42,7 @@ export class MyApp {
       { title: 'network test', component: NetworkPage},
       { title: 'battery test1', component: BatteryPage},
       { title: 'bluetooth test1', component: BluetoothPage},
+      {title: 'BLE test1', component: BlePage},
 
 
     ];
