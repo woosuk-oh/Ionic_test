@@ -23,6 +23,7 @@ import { NetworkInterface } from '@ionic-native/network-interface';
 import { BatteryStatus } from "@ionic-native/battery-status";
 import {BluetoothSerial } from "@ionic-native/bluetooth-serial";
 import {BLE} from "@ionic-native/ble";
+import { NetworkContentPage } from '../pages/network-check/network';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {BLE} from "@ionic-native/ble";
     ListAdd,
     BluetoothPage,
     BlePage,
-    BleDetailPage
+    BleDetailPage,
+    NetworkContentPage
 
 
   ],
@@ -58,7 +60,8 @@ import {BLE} from "@ionic-native/ble";
     BatteryPage,
     BluetoothPage,
     BlePage,
-    BleDetailPage
+    BleDetailPage,
+    NetworkContentPage
   ],
   providers: [
     BLE,

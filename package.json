@@ -54,7 +54,7 @@
     "rxjs": "5.5.7",
     "sw-toolbox": "3.6.0",
     "wifiwizard": "^0.2.11",
-    "wifiwizard2": "^2.1.0",
+    "wifiwizard2": "https://github.com/tripflex/WifiWizard2.git",
     "zone.js": "0.8.20"
   },
   "devDependencies": {
