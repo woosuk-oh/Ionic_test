@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
+import {Device} from '@ionic-native/device';
 
 
 declare let WifiWizard2: any;
@@ -11,187 +12,192 @@ declare let WifiWizard2: any;
 export class HomePage {
 
 
+  curPlatform: any; // 현재 단말기 플랫폼 정보.
   config: any;
-  SSID: any;
+  saveSSID: any;
+  savePw: any;
   delay: any;
   currentSSID: any;
 
   constructor(public navCtrl: NavController,
-              private platform: Platform) {
+              private platform: Platform,
+              private device: Device) {
 
     this.delay = 2000; // delay in ms for timeout
 
+    this.platform.ready().then(async () => {
+      this.curPlatform = this.device.platform //단말기 플랫폼 가져오기
 
+      // alert(this.curPlatform)
+      if (this.curPlatform == "Android") {
+        await console.log("현재 이 기기는" + this.curPlatform);
+        await this.getCurrentSSID()
+        // await this.timeout();
+        await this.connect("IVTSDEV", "dlsqps2017@@", "WPA")
+        await this.add()
+        await this.doConnect()
+      }
+      else if (this.curPlatform == "iOS") {
+        alert("현재 이 기기는" + this.curPlatform);
+        await this.getCurrentSSID()
+      }
+    })
   }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad Start")
 
-    this.platform.ready().then(async () => {
 
-      // this.getWifiSSID()
-
-      await this.getCurrentSSID()/*.then(()=>{
-        alert("view Did Load SSID: "+this.currentSSID)
-
-      }).then(()=>{
-        this.disconnectWIFI(this.currentSSID)
-
-      }).then(()=>{
-        this.doConnect()
-
-      })
-
-*/
-
-
-
-      // this.connect(sid)
-    })
   }
 
-  async getCurrentSSID() {
 
+  async getCurrentSSID() {
 
     try {
       await this.timeout();
 
-      await WifiWizard2.getCurrentSSID((ssid: string) => {/*(alert(`Your SSID: ${ssid}`))*/
+      await WifiWizard2.getCurrentSSID(async(ssid: string) => {/*(alert(`Your saveSSID: ${ssid}`))*/
         this.currentSSID = `${ssid}`
-        alert("현재 연결된 와이파이 가져옴: "+this.currentSSID)
-        this.disconnectWIFI(this.currentSSID)
+        alert("현재 연결된 와이파이 가져옴: " + this.currentSSID)
+        await this.disconnectWIFI(this.currentSSID) // 해당 정보로 연결해제 시도
 
-      }, (err: any) => {
-        this.currentSSID = `${err}`
-        alert("현재 연결된 와이파이 가져오는 도중 fail. "+ err)
+        return true
+
+      }, (e: any) => {
+        this.currentSSID = `${e}`
+        alert("와이파이 연결 안됨. " + e)
       });
-      /*
-            await WifiWizard2.getConnectedSSID((r) => {
-              alert("현재 연결된 와이파이명: " + r)
-              this.currentSSID = r
-              // this.getWifiSSID(r)
 
-            }, (e) => {
-              alert("연결된 와이파이 가져오는 도중 에러 발생: " + e)
-            })
-      */
     } catch (e) {
       alert("연결된 와이파이 가져오는 도중 에러 발생: " + e)
     }
 
+
   }
-  async disconnectWIFI(ssid){
-    alert("와이파이 가져온 후 연결해제 시도중..")
 
-    try{
+  async disconnectWIFI(ssid) {
+
+    try {
       await this.timeout();
-
-      await WifiWizard2.iOSDisconnectNetwork(ssid, (r)=>{
-        alert(ssid +"와의 연결 해제 됨: "+ r)
-        this.doConnect()
+      alert("와이파이 가져온 후 " + ssid + "와 연결해제 시도중..")
 
 
+      if (this.curPlatform == "iOS") {
+        await WifiWizard2.iOSDisconnectNetwork(ssid, (r) => {
+          alert(ssid + "와의 연결 해제 됨: " + r)
+          return true
+        }, (e) => {
+          alert("연결 해제 도중 에러 발생" + e)
+          return false
+        })
+      }
 
-      }, (e)=>{
-        alert("연결 해제 도중 에러 발생"+e )
-      })
+      else if (this.curPlatform == "Android") {
+        await WifiWizard2.androidDisconnectNetwork(ssid, (r) => {
+          alert(ssid + "와의 연결이 해제 됨: " + r)
+          return true
 
-    }catch (e) {
+        }, (e) => {
+          alert("연결 해제 도중 에러 발생" + e)
+          return false
+        })
+      }
+
+
+    } catch (e) {
 
     }
+
+    return true
   }
 
-  async getWifiSSID(ssid) {
-
-    this.SSID = ssid
-    this.connect(this.SSID, "dlsqps2017@@", "WPA")
-
-    /*
-
-        try {
-          WifiWizard2.getCurrentSSID((ssid: string) => {/!*(alert(`Your SSID: ${ssid}`))*!/
-            this.SSID = `${ssid}`
-            this.connect(this.SSID, "dlsqps2017@@", "WPA")
-            // console.log("getWIFI: ", sid)
-            // return sid
-
-
-
-          }, (err: any) => {formatWifiConfig
-            alert("wifi 가져오는 중에 에러발생: "+`${err}`)
-            // return sid
-          });
-
-        }catch (e) {
-          console.log("와이파이 정보 가져오는 중에 에러 발생",e)
-        }
-
-    */
-
-
-  }
 
   async connect(ssid, pw, algorithm) {
+    this.saveSSID = ssid
+    this.savePw = pw
+
     try {
       await this.timeout();
 
       this.config = WifiWizard2.formatWifiConfig(ssid, pw, algorithm)
 
+      await alert("와이파이 정보 포맷팅 완료.")
       console.log(this.config)
+      return true
 
-      await this.add();
-      await this.doConnect();
 
     } catch (e) {
       console.log("wifi connect catch error", e);
       throw new Error(e.message)
     }
 
+
   }
 
   async add() {
-    await this.timeout();
-
-
     try {
-      await WifiWizard2.addNetworkAsync(this.config)
-      // alert("add true")
+      await this.timeout();
+
+      WifiWizard2.addNetworkAsync(this.config)
+      alert(this.currentSSID + " 와이파이 정보 등록 완료.")
+
       return true;
 
     } catch (e) {
       alert("Fail to add device WIFI network to your mobile device. please try again" + e)
+
     }
 
 
+    return true
   }
 
   async doConnect() {
 
-    alert("연결해제 완료 후 다른 와이파이 연결 시도중...")
-
-
-    await this.timeout();
+    alert("등록한 와이파이 중 " + this.saveSSID + "와 연결 시도중...")
 
 
     try {
-      this.SSID = "IVTSDEV"
+      await this.timeout();
 
-      // await WifiWizard2.androidConnectNetworkAsync(this.SSID)
+      // await WifiWizard2.androidConnectNetworkAsync(this.saveSSID)
       // alert("doConnect true")
-      await WifiWizard2.iOSConnectNetworkAsync(this.SSID, "dlsqps2017@@"/*, (r) => {
-
-        alert("연결 성공: " + r)
-      }, (e) => {
-        alert("연결실패: " + e)
-      }*/)
 
 
-      return true
+      if (this.curPlatform == "iOS") {
+        await WifiWizard2.iOSConnectNetwork(this.saveSSID, this.savePw, (r) => {
+
+          alert("연결 성공: " + r)
+          return true
+
+        }, (e) => {
+          alert("연결실패: " + e)
+          return false
+
+        })
+
+      }
+      else if (this.curPlatform == "Android") {
+        await WifiWizard2.androidConnectNetwork(this.saveSSID, (r) => {
+
+          alert("연결 성공: " + r)
+          return true
+
+        }, (e) => {
+          alert("연결실패: " + e)
+          return false
+
+        })
+
+
+      }
     } catch (e) {
       // throw new Error
-      alert("Failed to connect to device WiFi SSID " + this.SSID + e);
+      alert("Failed to connect to device WiFi saveSSID " + this.saveSSID + e);
 
     }
+
+    return
 
   }
 
