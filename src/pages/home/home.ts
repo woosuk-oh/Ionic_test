@@ -1,6 +1,12 @@
 import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {Device} from '@ionic-native/device';
+import {Geolocation} from '@ionic-native/geolocation';
+
+
+
+
+
 
 
 declare let WifiWizard2: any;
@@ -21,7 +27,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               private platform: Platform,
-              private device: Device) {
+              private device: Device,
+              private geolocation: Geolocation) {
 
     this.delay = 2000; // delay in ms for timeout
 
@@ -31,15 +38,23 @@ export class HomePage {
       // alert(this.curPlatform)
       if (this.curPlatform == "Android") {
         await console.log("현재 이 기기는" + this.curPlatform);
-        await this.getCurrentSSID()
-        // await this.timeout();
-        await this.connect("IVTSDEV", "dlsqps2017@@", "WPA")
-        await this.add()
-        await this.doConnect()
+        // await this.getCurrentSSID()
+        // await this.connect("IVTSDEV", "dlsqps2017@@", "WPA")
+        // await this.add()
+        // await this.doConnect()
+
+
       }
       else if (this.curPlatform == "iOS") {
-        alert("현재 이 기기는" + this.curPlatform);
-        await this.getCurrentSSID()
+
+        this.saveSSID="IVTSDEV"
+        this.savePw="dlsqps2017@@"
+
+        // this.getCurrentPos()
+
+        // alert("현재 이 기기는" + this.curPlatform);
+        // await this.getCurrentSSID()
+        // await this.doConnect()
       }
     })
   }
@@ -47,6 +62,22 @@ export class HomePage {
   ionViewDidLoad() {
     console.log("ionViewDidLoad Start")
 
+    this.platform.ready().then(()=>{
+
+      this.getCurrentPos()
+
+    })
+
+  }
+
+  getCurrentPos(){
+    this.geolocation.getCurrentPosition().then((resp)=>{
+      alert(resp.coords.longitude)
+
+
+    }).catch((e)=>{
+      alert(e)
+    })
 
   }
 
@@ -59,13 +90,15 @@ export class HomePage {
       await WifiWizard2.getCurrentSSID(async(ssid: string) => {/*(alert(`Your saveSSID: ${ssid}`))*/
         this.currentSSID = `${ssid}`
         alert("현재 연결된 와이파이 가져옴: " + this.currentSSID)
-        await this.disconnectWIFI(this.currentSSID) // 해당 정보로 연결해제 시도
+        // await this.disconnectWIFI(this.currentSSID) // 해당 정보로 연결해제 시도
 
         return true
 
       }, (e: any) => {
         this.currentSSID = `${e}`
         alert("와이파이 연결 안됨. " + e)
+
+        return false
       });
 
     } catch (e) {
@@ -154,11 +187,11 @@ export class HomePage {
 
   async doConnect() {
 
-    alert("등록한 와이파이 중 " + this.saveSSID + "와 연결 시도중...")
 
 
     try {
       await this.timeout();
+      alert("등록한 와이파이 중 " + this.saveSSID + "와 연결 시도중...")
 
       // await WifiWizard2.androidConnectNetworkAsync(this.saveSSID)
       // alert("doConnect true")
