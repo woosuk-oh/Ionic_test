@@ -35,27 +35,7 @@ export class HomePage {
 
 
 
-
-
-
-    let bP;
-
     this.platform.ready().then(() => {
-      this.batteryStatus.onChange().subscribe(status => {
-        bP = status.level
-
-      })
-
-
-      setInterval(()=>{
-        // if(this.batteryPercent != undefined || this.batteryPercent != null){
-          this.batteryPercent = bP
-          alert(this.batteryPercent )
-        // }
-
-      },1000)
-
-
 
     })
 
