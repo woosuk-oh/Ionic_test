@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
+import { BatteryStatus } from '@ionic-native/battery-status';
 
 
 
@@ -30,6 +31,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     HomePage
   ],
   providers: [
+    BatteryStatus,
     Geolocation,
     Device,
     StatusBar,
