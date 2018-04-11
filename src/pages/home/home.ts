@@ -1,9 +1,13 @@
 import {Component} from '@angular/core';
-import {NavController, Platform} from 'ionic-angular';
+import {AlertController, NavController, Platform} from 'ionic-angular';
 import {Device} from '@ionic-native/device';
 import {Geolocation} from '@ionic-native/geolocation';
 import {BatteryStatus} from "@ionic-native/battery-status";
+import {BluetoothSerial} from "@ionic-native/bluetooth-serial";
+import {Camera, CameraOptions, CameraPopoverOptions} from "@ionic-native/camera";
+import Util from './util'
 
+// const util = Util.util
 
 declare let WifiWizard2: any;
 
@@ -26,31 +30,25 @@ export class HomePage {
               private platform: Platform,
               private device: Device,
               private geolocation: Geolocation,
-              private batteryStatus: BatteryStatus) {
+              private batteryStatus: BatteryStatus,
+              private bluetoothSerial: BluetoothSerial,
+              public alertCtrl: AlertController,
+              private camera: Camera) {
 
 
     this.currentSSID= [];
 
     this.delay = 2000; // delay in ms for timeout
 
-
-
     this.platform.ready().then(() => {
-
-    })
-
-
-    this.platform.ready().then(() => {
-
 
       this.curPlatform = this.device.platform //단말기 플랫폼 가져오기
       if (this.curPlatform == "Android") {
         console.log("현재 이 기기는" + this.curPlatform);
 
-
+        // this.cameraPic()
       }
       else if (this.curPlatform == "iOS") {
-
 
       }
     })
@@ -65,6 +63,45 @@ export class HomePage {
       setTimeout(resolve, delay);
     });
   }
+
+
+  cameraPic(){
+
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: true,
+    }
+
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      // Handle error
+      this.displayErrorAlert(err);
+    });
+  }
+
+
+
+  displayErrorAlert(err){
+    console.log(err);
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'Error while trying to capture picture',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  // openModal(){
+  //   util.prototype.callModal()
+  // }
 
 
 }

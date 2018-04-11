@@ -3,7 +3,7 @@
     <name>unittest</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.100.107:8101" />
+    <content original-src="index.html" src="http://192.168.100.137:8102" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -81,6 +81,7 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>need location access to find things nearby</string>
     </edit-config>
+    <allow-navigation href="http://192.168.100.137:8102" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />
     <plugin name="wifiwizard2" spec="^2.1.0" />
@@ -94,4 +95,6 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-plugin-battery-status" spec="^2.0.1" />
+    <plugin name="cordova-plugin-bluetooth-serial" spec="~0.4.7" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.2" />
 </widget>

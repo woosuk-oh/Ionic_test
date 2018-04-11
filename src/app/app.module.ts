@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { Device } from '@ionic-native/device';
 import { Geolocation } from '@ionic-native/geolocation';
 import { BatteryStatus } from '@ionic-native/battery-status';
+import {BluetoothSerial} from "@ionic-native/bluetooth-serial";
+import {Camera, CameraOptions, CameraPopoverOptions} from "@ionic-native/camera";
 
 
 
@@ -31,6 +33,8 @@ import { BatteryStatus } from '@ionic-native/battery-status';
     HomePage
   ],
   providers: [
+    Camera,
+    BluetoothSerial,
     BatteryStatus,
     Geolocation,
     Device,

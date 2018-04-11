@@ -6,6 +6,7 @@
   </ion-navbar>
 </ion-header>
 
+<!--
 <ion-content padding>
   The world is your 11112
   <div *ngFor="let item of currentSSID">{{item}}</div>
@@ -15,9 +16,26 @@
 
 
     <span [innerHTML]="batteryPercent"></span>
-    <!--<span [innerHTML]="currentSSID"></span>-->
+    &lt;!&ndash;<span [innerHTML]="currentSSID"></span>&ndash;&gt;
 
-  <!--{{currentSSID}}-->
+  &lt;!&ndash;{{currentSSID}}&ndash;&gt;
 
   </p>
+</ion-content>
+-->
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+
+      <button ion-button icon-right (click)="cameraPic()">
+        Take Picture <ion-icon name="camera"></ion-icon>
+      </button>
+
+      <img *ngIf="image"
+           [src]="domSanitizer.bypassSecurityTrustUrl(image)" />
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>
