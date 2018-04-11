@@ -23,6 +23,7 @@
   </p>
 </ion-content>
 -->
+<!--
 
 
 <ion-content>
@@ -38,4 +39,25 @@
 
     </ion-card-content>
   </ion-card>
+</ion-content>
+-->
+
+
+<ion-content padding class="card-background-page">
+  <button ion-button full (click)='takePhoto()'><ion-icon name="camera"></ion-icon>&nbsp;&nbsp;Take Photo</button>
+  <button ion-button full (click)='choosePhoto()'><ion-icon name="ios-images"></ion-icon>&nbsp;&nbsp;Select Photo</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let photo of photos; let id = index">
+        <ion-card class="releative">
+          <ion-icon ios="ios-add-circle" md="md-add-circle" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+          <img [src]="domSanitizer.bypassSecurityTrustUrl(photo)" *ngIf="photo" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button full (click)='uploadPhoto()'><ion-icon name="ios-cloud-upload-outline"></ion-icon>&nbsp;&nbsp;Upload Photo</button>
+  <ion-grid>
+    <ion-row>{{processString}}</ion-row>
+  </ion-grid>
 </ion-content>
