@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Network Check4</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<!--  <ion-list>
+    {{wifiInfo}}
+
+
+&lt;!&ndash;    <ion-item *ngFor="let item of items">
+      {{item.lte}} {{item.wifi}}
+    </ion-item>&ndash;&gt;
+  </ion-list>-->
+
+  <ion-list>
+    <button ion-item *ngFor="let item of wifiInfo">
+      <h2> SSID: {{item.SSID || "이름 없음"}}</h2>
+      <p> level(Signal Level): {{item.level}}</p>
+      <p> BSSID: {{item.BSSID}}</p>
+      <p> frequency: {{item.frequency}}</p>
+      <p> capabilities: {{item.capabilities}}</p>
+      <p> timestamp: {{item.timestamp}}</p>
+    </button>
+  </ion-list>
+
+</ion-content>
+
+
+<ion-footer>
+
+  <button ion-button block (click)="getSsidName();">현재 연결된 WIFI 이름</button>
+  <button ion-button block (click)="isWifiEnabled();">WIFI 연결 확인</button>
+  <button ion-button block (click)="listNetworks();">현재 WIFI 목록</button>
+  <button ion-button block (click)="openModal();">현재 연결된 WIFI 감도</button>
+
+</ion-footer>

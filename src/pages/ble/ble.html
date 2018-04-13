@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> BLE Scan Test 1</ion-title>
+    <p>{{statusMessage}}</p>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let device of devices" (click)="deviceSelected(device)">
+      <h2> {{device.name || '이름 불러오는중...'}} </h2>
+      <p> {{device.id}}</p>
+      <p>RSSI: {{device.rssi}}</p>
+      <p>연결상태: {{device.connected_status}}</p>
+    </button>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+
+  <ion-buttons end>
+    <button ion-button (click)="scan()">
+      Scan
+    </button>
+    <button ion-button (click)="stopScan()">
+      Stop
+    </button>
+  </ion-buttons>
+</ion-footer>
