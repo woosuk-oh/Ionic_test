@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, Platform} from 'ionic-angular';
 import {Device} from '@ionic-native/device';
-import {Geolocation} from '@ionic-native/geolocation';
-import {BatteryStatus} from "@ionic-native/battery-status";
 
 
 declare let WifiWizard2: any;
@@ -25,8 +23,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private platform: Platform,
               private device: Device,
-              private geolocation: Geolocation,
-              private batteryStatus: BatteryStatus) {
+  ) {
 
 
     this.currentSSID= [];
